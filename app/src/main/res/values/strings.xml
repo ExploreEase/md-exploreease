@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">TravelApp</string>
+    <string name="ob1_title">Find Your Perfect Place</string>
+    <string name="ob1_subtitle">Search for any place You want to visit in\nIndonesia, from cities and islands to\nbeaches and volcanoes.</string>
+    <string name="ob2_title">Discover Your Travel Style</string>
+    <string name="ob2_subtitle">Discover your travel style and get\npersonalized recommendations based on\nyour preferences and interests</string>
+    <string name="ob3_title">Traveler’s Choice</string>
+    <string name="ob3_subtitle">Shows you the best places to visit in\nIndonesia, based on the highest ratings\nfrom other travelers. </string>
+
+    <string name="login_page_title">Welcome back!</string>
+    <string name="register_page_title">Create an account.</string>
+    <string name="tv_name_hint">Please input your full name!</string>
+    <string name="tv_name_email">Please input your email address!</string>
+    <string name="tv_name_password">Please input your password!</string>
+
+    <string name="btn_get_started">Get Started</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+
+    <string name="to_login_alternate">Already have an account?</string>
+    <string name="to_register_alternate">Dont have any account?</string>
+
+
 </resources>
