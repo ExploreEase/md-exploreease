@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.databinding.ActivityOnboardingBinding
-import com.ch2ps418.travelapp.presentation.ui.home.MainActivity
+import com.ch2ps418.travelapp.presentation.ui.home.HomeActivity
 import com.ch2ps418.travelapp.presentation.ui.onboarding.carouselview.CarouselPage
 import com.ch2ps418.travelapp.presentation.ui.onboarding.carouselview.CarouselPager
 import com.ch2ps418.travelapp.presentation.ui.onboarding.carouselview.ZoomOutPageTransformer
@@ -48,7 +48,7 @@ class OnboardingActivity : AppCompatActivity(), CarouselPager.CarouselListener {
 		lifecycleScope.launchWhenCreated {
 			viewModel.getStatusOnboarding().observe(this@OnboardingActivity) { isOnboardingCompleted ->
 				if (isOnboardingCompleted == true) {
-					val intent = Intent(this@OnboardingActivity, MainActivity::class.java)
+					val intent = Intent(this@OnboardingActivity, HomeActivity::class.java)
 					startActivity(intent)
 					finishAffinity()
 				}

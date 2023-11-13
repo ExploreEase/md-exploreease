@@ -26,8 +26,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ui.home.MainActivity"
-            android:exported="true">
+            android:name=".presentation.ui.home.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.CustomAppBar">
 
         </activity>
     </application>
