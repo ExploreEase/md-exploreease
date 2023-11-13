@@ -8,7 +8,9 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import com.ch2ps418.travelapp.databinding.ActivitySplashcreenBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 class SplashcreenActivity : AppCompatActivity() {
 
