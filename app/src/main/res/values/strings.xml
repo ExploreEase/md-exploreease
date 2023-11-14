@@ -23,7 +23,7 @@
         <item>@drawable/iv_onboarding_3</item>
     </array>
 
-    <string name="login_page_title">Welcome back!</string>
+    <string name="login_page_title">Welcome Back!</string>
     <string name="register_page_title">Create an account.</string>
     <string name="tv_name_hint">Please input your full name!</string>
     <string name="tv_name_email">Please input your email address!</string>
