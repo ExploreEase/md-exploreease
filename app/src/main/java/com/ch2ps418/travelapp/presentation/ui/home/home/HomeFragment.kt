@@ -1,20 +1,43 @@
 package com.ch2ps418.travelapp.presentation.ui.home.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ch2ps418.travelapp.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.ch2ps418.travelapp.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+	private var _binding: FragmentHomeBinding? = null
+	private val binding get() = _binding!!
+
+	private val viewModel: HomeFragmentViewModel by viewModels()
+
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
+		_binding = FragmentHomeBinding.inflate(inflater, container, false)
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_home, container, false)
+		return binding.root
 	}
 
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+
+		viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
+			// Update your UI with the deviceToken value
+			binding.testToken.text = deviceToken
+		}
+	}
+
+	override fun onDestroy() {
+		super.onDestroy()
+		_binding = null
+	}
 }

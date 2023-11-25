@@ -10,20 +10,34 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.ch2ps418.travelapp.R
+import com.ch2ps418.travelapp.data.local.datastore.DataStoreManager
 import com.ch2ps418.travelapp.presentation.ui.home.HomeActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val channelId = "notifiaction_channel"
 const val channelName = "com.ch2ps418.travelapp"
 
+@AndroidEntryPoint
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+	@Inject
+	lateinit var dataStoreManager: DataStoreManager
 
 	// Override onNewToken to get new token
 	override fun onNewToken(token: String) {
 		super.onNewToken(token)
 		// Handle the new FCM token
 		Log.d("FCMTOKEN", token)
+		// Launch a coroutine to call the suspending function setDeviceToken
+		CoroutineScope(Dispatchers.IO).launch {
+			dataStoreManager.setDeviceToken(token)
+		}
 	}
 
 	// Override onMessageReceived() method to extract the title and body from the message passed in FCM
