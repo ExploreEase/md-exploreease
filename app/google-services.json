@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617097323099",
+    "project_id": "travel-app-bangkit-capstone",
+    "storage_bucket": "travel-app-bangkit-capstone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617097323099:android:39a34f834e9f4aade7957e",
+        "android_client_info": {
+          "package_name": "com.ch2ps418.travelapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD05zhQ8u4pBiogszoj83rSbIXwo_mYmfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
