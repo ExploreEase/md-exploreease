@@ -1,6 +1,7 @@
 package com.ch2ps418.travelapp.presentation.ui.home.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,16 @@ class HomeFragment : Fragment() {
 		viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
 			// Update your UI with the deviceToken value
 			binding.testToken.text = deviceToken
+
+			viewModel.getNearestPlaces(deviceToken.toString(), -7.052945994551127, 110.44020676422383)
+
 		}
+
+
+		viewModel.placesResult.observe(viewLifecycleOwner){
+			Log.d("MESSAGE", it.toString())
+		}
+
 	}
 
 	override fun onDestroy() {

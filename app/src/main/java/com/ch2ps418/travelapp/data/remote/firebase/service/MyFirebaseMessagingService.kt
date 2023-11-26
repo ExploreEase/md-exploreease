@@ -42,11 +42,27 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 	// Override onMessageReceived() method to extract the title and body from the message passed in FCM
 	override fun onMessageReceived(remoteMessage: RemoteMessage) {
+
+		Log.d("FROM", "From: ${remoteMessage.from.toString()}")
+
 		// Check if notification payload is received
 		remoteMessage.notification?.let {
 			// Since the notification is received directly from FCM, the title and the body can be fetched directly
-			showNotification(it.title!!, it.body!!)
+//			showNotification(it.title!!, it.body!!)
+
+			showNotification(it.title!!,remoteMessage.data.toString())
+
 		}
+
+		if (remoteMessage.data.isNotEmpty()) {
+			Log.d("BODY", "Message data payload: ${remoteMessage.data}")
+
+		}
+
+	}
+
+	override fun onDeletedMessages() {
+		super.onDeletedMessages()
 	}
 
 	// Method to get the custom Design for the display of notification.
