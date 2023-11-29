@@ -1,6 +1,5 @@
 package com.ch2ps418.travelapp.presentation.ui.home.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +37,7 @@ class HomeFragmentViewModel @Inject constructor(
 			try {
 				val data = repository.getNearestPlaces(deviceToken, lat, lon)
 
-				Log.d("PAYLOAD", data.payload.toString())
+//				Log.d("PAYLOAD", data.payload.toString())
 				if (data.payload != null) {
 					viewModelScope.launch(Dispatchers.Main) {
 						_placesResult.postValue(Resource.Success(data.payload))
