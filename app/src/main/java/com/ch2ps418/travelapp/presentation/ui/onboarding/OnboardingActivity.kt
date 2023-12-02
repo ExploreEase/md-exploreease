@@ -58,6 +58,6 @@ class OnboardingActivity : AppCompatActivity(), CarouselPager.CarouselListener {
 
 	override fun onCarouselFinished(skipped: Boolean) {
 		// set status on boarding
-		viewModel.setStatusOnboarding(true)
+		viewModel.setStatusOnboarding(skipped)
 	}
 }

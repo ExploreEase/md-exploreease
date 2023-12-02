@@ -1,6 +1,9 @@
 package com.ch2ps418.travelapp.presentation.ui.home.home
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -9,11 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.databinding.FragmentHomeBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -58,6 +63,52 @@ class HomeFragment : Fragment() {
 
 		viewModel.placesResult.observe(viewLifecycleOwner) {
 			// Handle the result from fetching nearest places
+		}
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			// Create channel to show notifications.
+			val channelId = getString(R.string.default_notification_channel_id)
+			val channelName = getString(R.string.default_notification_channel_name)
+			val notificationManager =
+				requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+			notificationManager?.createNotificationChannel(
+				NotificationChannel(
+					channelId,
+					channelName,
+					NotificationManager.IMPORTANCE_LOW,
+				),
+			)
+
+			askNotificationPermission()
+		}
+
+	}
+	private val requestPermissionLauncher = registerForActivityResult(
+		ActivityResultContracts.RequestPermission(),
+	) { isGranted: Boolean ->
+		if (isGranted) {
+			Toast.makeText(requireContext(), "Notifications permission granted", Toast.LENGTH_SHORT)
+				.show()
+		} else {
+			Toast.makeText(
+				requireContext(),
+				"FCM can't post notifications without POST_NOTIFICATIONS permission",
+				Toast.LENGTH_LONG,
+			).show()
+		}
+	}
+	private fun askNotificationPermission() {
+		// This is only necessary for API Level > 33 (TIRAMISU)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) ==
+				PackageManager.PERMISSION_GRANTED
+			) {
+				// FCM SDK (and your app) can post notifications.
+			} else {
+				// Directly ask for the permission
+				requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+			}
 		}
 	}
 
