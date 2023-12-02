@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -39,11 +41,19 @@ class HomeFragment : Fragment() {
 
 		fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+		viewModel.getStatusOnboarding().observe(viewLifecycleOwner){isAlreadyOnboarding->
+			Log.d("ONBOARDING", isAlreadyOnboarding.toString())
+		}
 		viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
 			binding.testToken.text = deviceToken
 
-			// Request location permission and get the current location
-			requestLocationPermission()
+			if (checkLocationPermission()) {
+				// Permission granted, get the current location
+				getCurrentLocation(deviceToken.toString())
+			} else {
+				// Request location permission
+				requestLocationPermission()
+			}
 		}
 
 		viewModel.placesResult.observe(viewLifecycleOwner) {
@@ -51,17 +61,21 @@ class HomeFragment : Fragment() {
 		}
 	}
 
+	private fun checkLocationPermission(): Boolean {
+		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+				(ContextCompat.checkSelfPermission(
+					requireContext(),
+					Manifest.permission.ACCESS_FINE_LOCATION
+				) == PackageManager.PERMISSION_GRANTED &&
+						ContextCompat.checkSelfPermission(
+							requireContext(),
+							Manifest.permission.ACCESS_COARSE_LOCATION
+						) == PackageManager.PERMISSION_GRANTED)
+	}
+
 	private fun requestLocationPermission() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-			ContextCompat.checkSelfPermission(
-				requireContext(),
-				Manifest.permission.ACCESS_FINE_LOCATION
-			) != PackageManager.PERMISSION_GRANTED
-		) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			showLocationPermissionDialog()
-		} else {
-			// Permission already granted, get the current location
-			getCurrentLocation()
 		}
 	}
 
@@ -81,7 +95,7 @@ class HomeFragment : Fragment() {
 		alertDialog.show()
 	}
 
-	private fun getCurrentLocation() {
+	private fun getCurrentLocation(deviceToken: String) {
 		if (ActivityCompat.checkSelfPermission(
 				requireContext(),
 				Manifest.permission.ACCESS_FINE_LOCATION
@@ -101,14 +115,21 @@ class HomeFragment : Fragment() {
 		}
 		fusedLocationClient.lastLocation.addOnSuccessListener { location ->
 			if (location != null) {
-				val latitude = location.latitude
-				val longitude = location.longitude
-
-				// fetch to backend
+				// If last known location is available, use it
 				viewModel.getNearestPlaces(
-					binding.testToken.text.toString(),
-					latitude,
-					longitude
+					deviceToken,
+					location.latitude,
+					location.longitude
+				)
+			} else {
+				// Handle the case when last known location is null
+				// You may want to show a message to the user or take appropriate action
+
+				Toast.makeText(requireContext(), "Location is null, fetching place near default location: Semarang!", Toast.LENGTH_SHORT).show()
+				viewModel.getNearestPlaces(
+					deviceToken,
+					-7.052945994551127,
+					110.44020676422383
 				)
 			}
 		}
@@ -123,7 +144,9 @@ class HomeFragment : Fragment() {
 		if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
 			if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				// Permission granted, get the current location
-				getCurrentLocation()
+				viewModel.getDeviceToken().value?.let { deviceToken ->
+					getCurrentLocation(deviceToken)
+				}
 			} else {
 				// Permission denied, handle accordingly
 			}

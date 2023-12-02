@@ -23,6 +23,7 @@ class HomeFragmentViewModel @Inject constructor(
 
 	private val _placesResult = MutableLiveData<Resource<NearestPlacesResponse>>()
 	val placesResult: LiveData<Resource<NearestPlacesResponse>> get() = _placesResult
+	fun getStatusOnboarding(): LiveData<Boolean> = dataStoreManager.getStatusOnboarding.asLiveData()
 
 	fun getDeviceToken(): LiveData<String?> = dataStoreManager.getDeviceToken.asLiveData()
 
