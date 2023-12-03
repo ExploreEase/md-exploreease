@@ -12,9 +12,9 @@
     </string-array>
 
     <string-array name="carousel_subtitles">
-        <item>Search for any place You want to visit in\nIndonesia, from cities and islands to\nbeaches and volcanoes.</item>
-        <item>Discover your travel style and get\npersonalized recommendations based on\nyour preferences and interests.</item>
-        <item>Shows you the best places to visit in\nIndonesia, based on the highest ratings\nfrom other travelers.</item>
+        <item>Search for any place You want to visit in Indonesia, from cities and islands to beaches and volcanoes.</item>
+        <item>Discover your travel style and get personalized recommendations based on your preferences and interests.</item>
+        <item>Shows you the best places to visit in Indonesia, based on the highest ratings from other travelers.</item>
     </string-array>
 
     <array name="carousel_drawables">

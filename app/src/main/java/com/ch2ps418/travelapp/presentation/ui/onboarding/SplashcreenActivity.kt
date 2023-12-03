@@ -4,9 +4,11 @@ package com.ch2ps418.travelapp.presentation.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ch2ps418.travelapp.databinding.ActivitySplashcreenBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +19,16 @@ class SplashcreenActivity : AppCompatActivity() {
 
 	private var _binding: ActivitySplashcreenBinding? = null
 	private val binding get() = _binding!!
+	private val viewModel: OnboardingViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		_binding = ActivitySplashcreenBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
+		viewModel.getStatusOnboarding().observe(this){ isAlreadyOnboarding ->
+			Log.d("ONBOARDING SPLASH", isAlreadyOnboarding.toString())
+		}
 		// Animasi zoom in untuk tv_app_name
 		val zoomInAnimationName =
 			ScaleAnimation(

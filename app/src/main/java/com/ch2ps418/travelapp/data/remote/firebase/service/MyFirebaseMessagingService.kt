@@ -9,11 +9,16 @@ import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.data.local.datastore.DataStoreManager
+import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
 import com.ch2ps418.travelapp.presentation.ui.home.HomeActivity
+import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.PlaceAdapter
+import com.google.common.reflect.TypeToken
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +59,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 		if (remoteMessage.data.isNotEmpty()) {
 			Log.d("PAYLOAD", "Message data payload: ${remoteMessage.data}")
 
+			val tenNearestPlaceJson = remoteMessage.data["tenNearestPlace"]
+			val tenNearestPlaces = Gson().fromJson<List<TenNearestPlace>>(
+				tenNearestPlaceJson,
+				object : TypeToken<List<TenNearestPlace>>() {}.type
+			)
+
+			Log.d("SUBMITTED", tenNearestPlaces.toString())
+
+
+			// Send a broadcast to notify the UI
+			val intent = Intent("MyCustomAction")
+			intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
+			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
 		}
 
 		if (remoteMessage.data.isNotEmpty()) {
