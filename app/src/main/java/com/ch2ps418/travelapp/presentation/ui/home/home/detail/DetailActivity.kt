@@ -31,6 +31,7 @@ class DetailActivity : AppCompatActivity() {
 				// Access placeData.Place_Id, placeData.Place_Name, placeData.Rating, etc.
 
 				binding.collapsingToolbar.title = placeData.Place_Name
+				binding.tvNamePlace.text = placeData.Place_Name
 				binding.tvCity.text = placeData.City
 				binding.tvCategory.text = placeData.Category
 				binding.tvPrice.text = formatToRupiah(placeData.Price)

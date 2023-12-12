@@ -43,4 +43,24 @@
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="default_notification_channel_name" translatable="true">Weather</string>
+
+    <string name="btn_view_more">View More</string>
+    <string name="tv_greeting">Hi,</string>
+    <string name="tv_username">User</string>
+    <string name="tv_home_title">Where do</string>
+    <string name="tv_home_subtitle">you want to go?</string>
+    <string name="tv_nearby_item_title">Nearby Treasures</string>
+    <string name="tv_rating_title">Rating</string>
+    <string name="tv_location_title">Location</string>
+    <string name="tv_price_title">Price</string>
+    <string name="tv_overview_title">Overview</string>
+    <string name="tv_categories_title">Categories</string>
+    <string name="tv_item_name">Item Name</string>
+    <string name="tv_item_category">Item Category</string>
+    <string name="tv_item_location">Item Location</string>
+    <string name="tv_item_price">Item Price</string>
+    <string name="tv_item_rating">5.0</string>
+
+
+
 </resources>

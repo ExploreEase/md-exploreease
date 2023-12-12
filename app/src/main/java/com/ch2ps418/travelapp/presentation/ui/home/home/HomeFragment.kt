@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
 						tenNearestPlaces?.let {
 							// Update your adapter with the new data
 							binding.rvPlace.layoutManager =
-								LinearLayoutManager(requireContext())
+								LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 							binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
 							isLoading(false)
 						}

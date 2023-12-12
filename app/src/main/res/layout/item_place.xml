@@ -1,59 +1,110 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-   android:id="@+id/cv_place"
+    android:id="@+id/cv_place"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="220dp"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="4dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="16dp">
 
-        <ImageView
-            android:id="@+id/iv_image_place"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/primary"
-            android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
+            android:layout_height="match_parent"
+            app:cardCornerRadius="16dp"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_image_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/primary"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="4dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_ratings" />
+
+                        <TextView
+                            android:id="@+id/tv_rating_place"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textColor="@color/black_500"
+                            android:textSize="12sp"
+                            android:text="@string/tv_item_rating" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tv_name_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            tools:text="Nama User" />
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/tv_item_name" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_ratings"
-                android:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:id="@+id/tv_rating_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/primary"
-                android:textSize="18sp"
-                tools:text="4.0"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="14sp"
+            android:textColor="@color/black_300"
+            android:text="@string/tv_item_location"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

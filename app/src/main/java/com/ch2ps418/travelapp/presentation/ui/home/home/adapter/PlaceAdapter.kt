@@ -35,6 +35,7 @@ class PlaceAdapter(private val data: List<TenNearestPlace>) :
         fun bindItem(data: TenNearestPlace, context: Context) {
             binding.tvNamePlace.text = data.Place_Name
             binding.tvRatingPlace.text = data.Rating.toString()
+            binding.tvItemLocation.text = data.City
             binding.cvPlace.setOnClickListener {
                 data?.let { place ->
                     val intent = Intent(context, DetailActivity::class.java)
