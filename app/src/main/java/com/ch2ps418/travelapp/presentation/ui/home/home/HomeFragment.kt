@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.FragmentHomeBinding
+import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.CategoryAdapter
 import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.PlaceAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -59,6 +60,24 @@ class HomeFragment : Fragment() {
 		viewModel.getStatusOnboarding().observe(viewLifecycleOwner) { isAlreadyOnboarding ->
 			Log.d("ONBOARDING", isAlreadyOnboarding.toString())
 		}
+
+//		val categories = listOf("Alam", "Alam Buatan", "Adat", "Agrowisata", "Bahari", "Budaya", "Cagar", "Cagar Alam",
+//			"Cagar Budaya", "Desa Wisata", "Hiburan", "Ibadah", "Margasatwa dan Budaya", "Margasatwa", "Pemandian Alam",
+//			"Pusat Perbelanjaan", "Perbelanjaan", "Religi", "Sejarah", "Taman", "Taman Air", "Taman Hiburan",
+//			"Taman Kopi", "Taman Margasatwa", "Taman Wisata", "Tempat Hiburan", "Tempat Ibadah", "Tradisional")
+
+		val categories = listOf(
+			"Alam", "Agrowisata", "Bahari", "Budaya", "Cagar Alam",
+			"Desa Wisata", "Hiburan", "Ibadah",
+			"Pusat Perbelanjaan", "Perbelanjaan", "Sejarah", "Taman", "Taman Hiburan",
+			"Tempat Hiburan", "Tempat Ibadah",
+		)
+
+		val adapter = CategoryAdapter(categories)
+		binding.rvCategory.layoutManager =
+			LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+		binding.rvCategory.adapter = adapter
+
 		viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
 
 			if (checkLocationPermission()) {
@@ -136,7 +155,7 @@ class HomeFragment : Fragment() {
 					}
 				}
 			},
-			IntentFilter("Top Action")
+			IntentFilter("MyCustomActionTopPlaces")
 		)
 
 	}
@@ -242,11 +261,10 @@ class HomeFragment : Fragment() {
 					location.longitude
 				)
 
-				viewModel.placesResult.observe(viewLifecycleOwner){
-					status->
+				viewModel.placesResult.observe(viewLifecycleOwner) { status ->
 
 					Log.d("STATUS", status.payload?.message.toString())
-					if (status.payload?.message.equals("ok")){
+					if (status.payload?.message.equals("ok")) {
 						viewModel.getTopPlaces(
 							deviceToken,
 							location.latitude,

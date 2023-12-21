@@ -3,13 +3,16 @@
     android:id="@+id/cv_item_category"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
     android:elevation="4dp"
     android:backgroundTint="@color/secondary">
 
     <TextView
+        android:id="@+id/tv_item_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

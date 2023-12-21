@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".presentation.ui.home.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FBFBFB">
+        android:layout_height="match_parent">
 
         <ProgressBar
             android:id="@+id/pb_home"
@@ -134,7 +132,7 @@
                         android:text="@string/tv_categories_title"
                         android:textSize="12sp" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/btn_view_categories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -142,7 +140,7 @@
                         android:gravity="end"
                         android:text="@string/btn_view_more"
                         android:textColor="@color/primary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp" />-->
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -177,7 +175,7 @@
                 android:text="@string/tv_nearby_item_title"
                 android:textSize="24sp" />
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/btn_view_nearby"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,7 +184,7 @@
                 android:gravity="end"
                 android:text="@string/btn_view_more"
                 android:textColor="@color/primary"
-                android:textSize="12sp" />
+                android:textSize="12sp" />-->
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -226,7 +224,7 @@
                 android:text="@string/title_top_destinations"
                 android:textSize="24sp" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/btn_view_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -235,7 +233,7 @@
                 android:gravity="end"
                 android:text="@string/btn_view_more"
                 android:textColor="@color/primary"
-                android:textSize="12sp" />
+                android:textSize="12sp" />-->
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
