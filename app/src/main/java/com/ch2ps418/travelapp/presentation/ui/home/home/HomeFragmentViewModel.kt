@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ch2ps418.travelapp.data.local.datastore.DataStoreManager
-import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
+import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.data.remote.repository.NearestPlacesRepository
-import com.ch2ps418.travelapp.data.remote.retrofit.model.NearestPlacesResponse
+import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import com.ch2ps418.travelapp.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -22,15 +22,15 @@ class HomeFragmentViewModel @Inject constructor(
 	private val repository: NearestPlacesRepository,
 ) : ViewModel() {
 
-	private val _placesResult = MutableLiveData<Resource<NearestPlacesResponse>>()
-	val placesResult: LiveData<Resource<NearestPlacesResponse>> get() = _placesResult
+	private val _placesResult = MutableLiveData<Resource<BackendResponse>>()
+	val placesResult: LiveData<Resource<BackendResponse>> get() = _placesResult
 	fun getStatusOnboarding(): LiveData<Boolean> = dataStoreManager.getStatusOnboarding.asLiveData()
 
 
-	private val _nearestPlaces = MutableLiveData<List<TenNearestPlace>>()
-	val nearestPlaces: LiveData<List<TenNearestPlace>> get() = _nearestPlaces
+	private val _nearestPlaces = MutableLiveData<List<Place>>()
+	val nearestPlaces: LiveData<List<Place>> get() = _nearestPlaces
 
-	fun updateNearestPlaces(list: List<TenNearestPlace>) {
+	fun updateNearestPlaces(list: List<Place>) {
 		_nearestPlaces.value = list
 	}
 

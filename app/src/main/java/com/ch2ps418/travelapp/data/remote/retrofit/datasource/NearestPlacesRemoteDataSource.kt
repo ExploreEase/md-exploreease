@@ -1,11 +1,11 @@
 package com.ch2ps418.travelapp.data.remote.retrofit.datasource
 
-import com.ch2ps418.travelapp.data.remote.retrofit.model.NearestPlacesResponse
+import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import com.ch2ps418.travelapp.data.remote.retrofit.service.ApiServiceNearestPlaces
 import javax.inject.Inject
 
 interface NearestPlacesRemoteDataSource {
-	suspend fun getNearestPlaces(devicetoken: String, lat: Double, lon: Double): NearestPlacesResponse
+	suspend fun getNearestPlaces(devicetoken: String, lat: Double, lon: Double): BackendResponse
 }
 
 class NearestPlacesRemoteDataSourceImpl @Inject constructor(private val apiServiceNearestPlaces: ApiServiceNearestPlaces) :
@@ -14,7 +14,7 @@ class NearestPlacesRemoteDataSourceImpl @Inject constructor(private val apiServi
 		devicetoken: String,
 		lat: Double,
 		lon: Double,
-	): NearestPlacesResponse {
+	): BackendResponse {
 		return apiServiceNearestPlaces.getTenNearestPlaces(devicetoken, lat, lon)
 	}
 

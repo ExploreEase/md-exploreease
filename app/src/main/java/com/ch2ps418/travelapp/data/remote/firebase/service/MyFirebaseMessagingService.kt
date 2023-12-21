@@ -12,9 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.data.local.datastore.DataStoreManager
-import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
+import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.presentation.ui.home.HomeActivity
-import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.PlaceAdapter
 import com.google.common.reflect.TypeToken
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -60,9 +59,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			Log.d("PAYLOAD", "Message data payload: ${remoteMessage.data}")
 
 			val tenNearestPlaceJson = remoteMessage.data["tenNearestPlace"]
-			val tenNearestPlaces = Gson().fromJson<List<TenNearestPlace>>(
+			val tenNearestPlaces = Gson().fromJson<List<Place>>(
 				tenNearestPlaceJson,
-				object : TypeToken<List<TenNearestPlace>>() {}.type
+				object : TypeToken<List<Place>>() {}.type
 			)
 
 			Log.d("SUBMITTED", tenNearestPlaces.toString())

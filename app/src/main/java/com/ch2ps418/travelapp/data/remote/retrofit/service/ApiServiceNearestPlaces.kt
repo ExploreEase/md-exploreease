@@ -1,8 +1,7 @@
 package com.ch2ps418.travelapp.data.remote.retrofit.service
 
-import com.ch2ps418.travelapp.data.remote.retrofit.model.NearestPlacesResponse
+import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiServiceNearestPlaces {
@@ -12,5 +11,11 @@ interface ApiServiceNearestPlaces {
 		@Query("devicetoken") devicetoken: String,
 		@Query("lat") lat: Double,
 		@Query("lon") lon: Double
-	): NearestPlacesResponse
+	): BackendResponse
+
+	@GET("ml/search")
+	suspend fun searchPlace(
+		@Query("devicetoken") devicetoken: String,
+		@Query("placename") lat: String,
+	): BackendResponse
 }

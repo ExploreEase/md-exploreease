@@ -2,8 +2,7 @@ package com.ch2ps418.travelapp.presentation.ui.home.home.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ch2ps418.travelapp.R
-import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
+import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.ActivityDetailBinding
 import java.text.NumberFormat
 import java.util.Locale
@@ -24,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
 	private fun getData(){
 		val extras = intent.extras
 		if (extras != null) {
-			val placeData = extras.getSerializable("placeData") as? TenNearestPlace
+			val placeData = extras.getSerializable("placeData") as? Place
 
 			// Use the TenNearestPlace object in your DetailActivity
 			if (placeData != null) {

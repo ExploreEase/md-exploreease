@@ -24,7 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ch2ps418.travelapp.R
-import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
+import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.FragmentHomeBinding
 import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.PlaceAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
 				override fun onReceive(context: Context?, intent: Intent?) {
 					intent?.let {
 						val tenNearestPlaces =
-							it.getSerializableExtra("tenNearestPlaces") as? List<TenNearestPlace>
+							it.getSerializableExtra("tenNearestPlaces") as? List<Place>
 
 						tenNearestPlaces?.let {
 							// Update your adapter with the new data

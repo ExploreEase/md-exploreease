@@ -1,7 +1,7 @@
 package com.ch2ps418.travelapp.data.remote.repository
 
 import com.ch2ps418.travelapp.data.remote.retrofit.datasource.NearestPlacesRemoteDataSource
-import com.ch2ps418.travelapp.data.remote.retrofit.model.NearestPlacesResponse
+import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import com.ch2ps418.travelapp.wrapper.Resource
 import javax.inject.Inject
 
@@ -10,7 +10,7 @@ interface NearestPlacesRepository {
 		devicetoken: String,
 		lat: Double,
 		lon: Double,
-	): Resource<NearestPlacesResponse>
+	): Resource<BackendResponse>
 }
 
 class NearestPlacesRepositoryImpl @Inject constructor(private val dataSource: NearestPlacesRemoteDataSource) :
@@ -19,7 +19,7 @@ class NearestPlacesRepositoryImpl @Inject constructor(private val dataSource: Ne
 		devicetoken: String,
 		lat: Double,
 		lon: Double,
-	): Resource<NearestPlacesResponse> {
+	): Resource<BackendResponse> {
 		return proceed {
 			dataSource.getNearestPlaces(devicetoken, lat, lon)
 		}

@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ch2ps418.travelapp.data.remote.firebase.model.TenNearestPlace
+import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.ItemPlaceBinding
 import com.ch2ps418.travelapp.presentation.ui.home.home.detail.DetailActivity
 
-class PlaceAdapter(private val data: List<TenNearestPlace>) :
+class PlaceAdapter(private val data: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     private lateinit var contextAdapter: Context
@@ -32,7 +32,7 @@ class PlaceAdapter(private val data: List<TenNearestPlace>) :
 
     class ViewHolder(private val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(data: TenNearestPlace, context: Context) {
+        fun bindItem(data: Place, context: Context) {
             binding.tvNamePlace.text = data.Place_Name
             binding.tvRatingPlace.text = data.Rating.toString()
             binding.tvItemLocation.text = data.City
