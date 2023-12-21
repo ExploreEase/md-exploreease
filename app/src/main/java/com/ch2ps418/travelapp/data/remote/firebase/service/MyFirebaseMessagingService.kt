@@ -86,7 +86,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			}
 
 			// Send a broadcast to notify the UI
-			val intent = Intent("MyCustomAction")
+			val intent = Intent("Nearest Action")
 			intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
 			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
 
@@ -99,7 +99,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			// Send a broadcast to notify the UI
 			val searchIntent = Intent("Search Action")
 			searchIntent.putExtra("searchPlaces", ArrayList(tenNearestPlaces))
-			Log.d("SUBMITTED", tenNearestPlaces.toString())
 			LocalBroadcastManager.getInstance(this).sendBroadcast(searchIntent)
 		} else {
 			Log.d("DATA", "EMPTY")

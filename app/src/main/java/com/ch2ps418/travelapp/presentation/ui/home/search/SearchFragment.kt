@@ -28,6 +28,34 @@ class SearchFragment : Fragment() {
 
 	private val viewModel: SearchFagmentViewModel by viewModels()
 
+	private val searchBroadcastReceiver = object : BroadcastReceiver() {
+		override fun onReceive(context: Context?, intent: Intent?) {
+			isLoading(false)
+
+			intent?.let {
+				val places =
+					it.getSerializableExtra("searchPlaces") as? List<Place>
+
+				places?.let {
+					binding.rvPlace.visibility = View.VISIBLE
+					// Update your adapter with the new data
+					binding.rvPlace.layoutManager =
+						LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+					binding.rvPlace.adapter = SearchAdapter(places)
+				} ?: run {
+					// Handle the case where places is null
+					// For example, show an error message or hide the RecyclerView
+					binding.rvPlace.visibility = View.GONE
+					binding.tvError.visibility = View.VISIBLE
+				}
+			} ?: run {
+				// Handle the case where intent is null
+				// For example, show an error message or hide the RecyclerView
+				binding.rvPlace.visibility = View.GONE
+				binding.tvError.visibility = View.VISIBLE
+			}
+		}
+	}
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -78,37 +106,8 @@ class SearchFragment : Fragment() {
 		}
 
 
-		// Tempatkan panggilan untuk menghentikan indikator loading di dalam receiver
 		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-			object : BroadcastReceiver() {
-				override fun onReceive(context: Context?, intent: Intent?) {
-					// Hentikan indikator loading jika receiver menerima siaran
-					isLoading(false)
-
-					intent?.let {
-						val places =
-							it.getSerializableExtra("searchPlaces") as? List<Place>
-
-						places?.let {
-							binding.rvPlace.visibility = View.VISIBLE
-							// Update your adapter with the new data
-							binding.rvPlace.layoutManager =
-								LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-							binding.rvPlace.adapter = SearchAdapter(places)
-						} ?: run {
-							// Handle the case where places is null
-							// For example, show an error message or hide the RecyclerView
-							binding.rvPlace.visibility = View.GONE
-							binding.tvError.visibility = View.VISIBLE
-						}
-					} ?: run {
-						// Handle the case where intent is null
-						// For example, show an error message or hide the RecyclerView
-						binding.rvPlace.visibility = View.GONE
-						binding.tvError.visibility = View.VISIBLE
-					}
-				}
-			},
+			searchBroadcastReceiver,
 			IntentFilter("Search Action")
 		)
 
@@ -125,8 +124,10 @@ class SearchFragment : Fragment() {
 
 	}
 
-	override fun onDestroy() {
-		super.onDestroy()
+	override fun onDestroyView() {
+		super.onDestroyView()
 		_binding = null
+		LocalBroadcastManager.getInstance(requireContext())
+			.unregisterReceiver(searchBroadcastReceiver)
 	}
 }

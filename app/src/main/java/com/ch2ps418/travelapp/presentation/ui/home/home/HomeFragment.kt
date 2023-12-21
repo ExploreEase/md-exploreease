@@ -42,6 +42,54 @@ class HomeFragment : Fragment() {
 	private val viewModel: HomeFragmentViewModel by viewModels()
 	private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+	private val topDestinationBroadcastReceiver = object : BroadcastReceiver() {
+		override fun onReceive(context: Context?, intent: Intent?) {
+			isLoading(false)
+
+			intent?.let {
+				val topPlaces =
+					it.getSerializableExtra("topPlaces") as? List<Place>
+
+				topPlaces?.let {
+					// Update your adapter with the new data
+					binding.rvTopPlaces.layoutManager =
+						LinearLayoutManager(
+							requireContext(),
+							LinearLayoutManager.HORIZONTAL,
+							false
+						)
+					binding.rvTopPlaces.adapter = PlaceAdapter(topPlaces)
+					isLoading(false)
+
+				}
+			}
+		}
+	}
+
+	private val nearestDestinationBroadcastReceiver = object : BroadcastReceiver() {
+		override fun onReceive(context: Context?, intent: Intent?) {
+			isLoading(false)
+
+			intent?.let {
+				val tenNearestPlaces =
+					it.getSerializableExtra("tenNearestPlaces") as? List<Place>
+
+				tenNearestPlaces?.let {
+					// Update your adapter with the new data
+					binding.rvPlace.layoutManager =
+						LinearLayoutManager(
+							requireContext(),
+							LinearLayoutManager.HORIZONTAL,
+							false
+						)
+					binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
+					isLoading(false)
+
+				}
+			}
+		}
+	}
+
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -55,28 +103,11 @@ class HomeFragment : Fragment() {
 
 		isLoading(true)
 
-		fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+		// init
+		init()
 
-		viewModel.getStatusOnboarding().observe(viewLifecycleOwner) { isAlreadyOnboarding ->
-			Log.d("ONBOARDING", isAlreadyOnboarding.toString())
-		}
-
-//		val categories = listOf("Alam", "Alam Buatan", "Adat", "Agrowisata", "Bahari", "Budaya", "Cagar", "Cagar Alam",
-//			"Cagar Budaya", "Desa Wisata", "Hiburan", "Ibadah", "Margasatwa dan Budaya", "Margasatwa", "Pemandian Alam",
-//			"Pusat Perbelanjaan", "Perbelanjaan", "Religi", "Sejarah", "Taman", "Taman Air", "Taman Hiburan",
-//			"Taman Kopi", "Taman Margasatwa", "Taman Wisata", "Tempat Hiburan", "Tempat Ibadah", "Tradisional")
-
-		val categories = listOf(
-			"Alam", "Agrowisata", "Bahari", "Budaya", "Cagar Alam",
-			"Desa Wisata", "Hiburan", "Ibadah",
-			"Pusat Perbelanjaan", "Perbelanjaan", "Sejarah", "Taman", "Taman Hiburan",
-			"Tempat Hiburan", "Tempat Ibadah",
-		)
-
-		val adapter = CategoryAdapter(categories)
-		binding.rvCategory.layoutManager =
-			LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-		binding.rvCategory.adapter = adapter
+		// set category
+		categoryRV()
 
 		viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
 
@@ -108,56 +139,34 @@ class HomeFragment : Fragment() {
 		}
 
 		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-			object : BroadcastReceiver() {
-				override fun onReceive(context: Context?, intent: Intent?) {
-					intent?.let {
-						val tenNearestPlaces =
-							it.getSerializableExtra("tenNearestPlaces") as? List<Place>
-
-						tenNearestPlaces?.let {
-							// Update your adapter with the new data
-							binding.rvPlace.layoutManager =
-								LinearLayoutManager(
-									requireContext(),
-									LinearLayoutManager.HORIZONTAL,
-									false
-								)
-							binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
-							isLoading(false)
-
-						}
-					}
-
-				}
-			},
-			IntentFilter("MyCustomAction")
+			nearestDestinationBroadcastReceiver,
+			IntentFilter("Nearest Action")
 		)
 
 		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-			object : BroadcastReceiver() {
-				override fun onReceive(context: Context?, intent: Intent?) {
-					intent?.let {
-						val topPlaces =
-							it.getSerializableExtra("topPlaces") as? List<Place>
-
-						topPlaces?.let {
-							// Update your adapter with the new data
-							binding.rvTopPlaces.layoutManager =
-								LinearLayoutManager(
-									requireContext(),
-									LinearLayoutManager.HORIZONTAL,
-									false
-								)
-							binding.rvTopPlaces.adapter = PlaceAdapter(topPlaces)
-							isLoading(false)
-
-						}
-					}
-				}
-			},
-			IntentFilter("MyCustomActionTopPlaces")
+			topDestinationBroadcastReceiver,
+			IntentFilter("Top Action")
 		)
 
+	}
+
+	private fun init() {
+		fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+	}
+
+	private fun categoryRV() {
+		val categories = listOf(
+			"Alam", "Agrowisata", "Bahari", "Budaya", "Cagar Alam",
+			"Desa Wisata", "Hiburan", "Ibadah",
+			"Pusat Perbelanjaan", "Perbelanjaan", "Sejarah", "Taman", "Taman Hiburan",
+			"Tempat Hiburan", "Tempat Ibadah",
+		)
+
+		val adapter = CategoryAdapter(categories)
+		binding.rvCategory.layoutManager =
+			LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+		binding.rvCategory.adapter = adapter
 	}
 
 	private fun isLoading(isLoading: Boolean) {
@@ -261,18 +270,11 @@ class HomeFragment : Fragment() {
 					location.longitude
 				)
 
-				viewModel.placesResult.observe(viewLifecycleOwner) { status ->
-
-					Log.d("STATUS", status.payload?.message.toString())
-					if (status.payload?.message.equals("ok")) {
-						viewModel.getTopPlaces(
-							deviceToken,
-							location.latitude,
-							location.longitude
-						)
-					}
-				}
-
+//				viewModel.getTopPlaces(
+//					deviceToken,
+//					location.latitude,
+//					location.longitude
+//				)
 			} else {
 				// Handle the case when last known location is null
 				// You may want to show a message to the user or take appropriate action
@@ -314,6 +316,11 @@ class HomeFragment : Fragment() {
 		super.onDestroy()
 		_binding = null
 
+		LocalBroadcastManager.getInstance(requireContext())
+			.unregisterReceiver(topDestinationBroadcastReceiver)
+
+		LocalBroadcastManager.getInstance(requireContext())
+			.unregisterReceiver(nearestDestinationBroadcastReceiver)
 	}
 
 	companion object {
