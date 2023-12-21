@@ -64,20 +64,30 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 				object : TypeToken<List<Place>>() {}.type
 			)
 
+			val tenTopPlaceJson = remoteMessage.data["tenTopPlace"]
+			val tenTopPlaces = Gson().fromJson<List<Place>>(
+				tenTopPlaceJson,
+				object : TypeToken<List<Place>>() {}.type
+			)
+
 			Log.d("SUBMITTED", tenNearestPlaces.toString())
+			Log.d("SUBMITTED", tenTopPlaces.toString())
 
 
 			// Send a broadcast to notify the UI
 			val intent = Intent("MyCustomAction")
 			intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
 			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+
+			val intentTopPlaces = Intent("MyCustomActionTopPlaces")
+			intentTopPlaces.putExtra("tenTopPlaces", ArrayList(tenTopPlaces))
+			LocalBroadcastManager.getInstance(this).sendBroadcast(intentTopPlaces)
 		}
 
 		if (remoteMessage.data.isNotEmpty()) {
 			Log.d("BODY", "Message data payload: ${remoteMessage.data}")
 
 		}
-
 	}
 
 

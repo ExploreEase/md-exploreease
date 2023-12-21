@@ -60,7 +60,7 @@
     <string name="tv_item_location">Item Location</string>
     <string name="tv_item_price">Item Price</string>
     <string name="tv_item_rating">5.0</string>
-
+    <string name="title_top_destinations">Top Destinations</string>
 
 
 </resources>

@@ -101,11 +101,33 @@ class HomeFragment : Fragment() {
 								LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 							binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
 							isLoading(false)
+
 						}
 					}
 				}
 			},
 			IntentFilter("MyCustomAction")
+		)
+
+		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+			object : BroadcastReceiver() {
+				override fun onReceive(context: Context?, intentTopPlaces: Intent?) {
+					intentTopPlaces?.let {
+						val tenTopPlaces =
+							it.getSerializableExtra("tenTopPlaces") as? List<Place>
+
+						tenTopPlaces?.let {
+							// Update your adapter with the new data
+							binding.rvTopPlaces.layoutManager =
+								LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+							binding.rvTopPlaces.adapter = PlaceAdapter(tenTopPlaces)
+							isLoading(false)
+
+						}
+					}
+				}
+			},
+			IntentFilter("MyCustomActionTopPlaces")
 		)
 	}
 
