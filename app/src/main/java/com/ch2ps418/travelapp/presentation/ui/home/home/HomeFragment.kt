@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ch2ps418.travelapp.R
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.FragmentHomeBinding
+import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.CategoryAdapter
 import com.ch2ps418.travelapp.presentation.ui.home.home.adapter.PlaceAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -109,7 +110,7 @@ class HomeFragment : Fragment() {
 			IntentFilter("MyCustomAction")
 		)
 
-		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+		/*LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
 			object : BroadcastReceiver() {
 				override fun onReceive(context: Context?, intentTopPlaces: Intent?) {
 					intentTopPlaces?.let {
@@ -128,7 +129,17 @@ class HomeFragment : Fragment() {
 				}
 			},
 			IntentFilter("MyCustomActionTopPlaces")
-		)
+		)*/
+
+		val categories = listOf("Alam", "Alam Buatan", "Adat", "Agrowisata", "Bahari", "Budaya", "Cagar", "Cagar Alam",
+								"Cagar Budaya", "Desa Wisata", "Hiburan", "Ibadah", "Margasatwa dan Budaya", "Margasatwa", "Pemandian Alam",
+								"Pusat Perbelanjaan", "Perbelanjaan", "Religi", "Sejarah", "Taman", "Taman Air", "Taman Hiburan",
+								"Taman Kopi", "Taman Margasatwa", "Taman Wisata", "Tempat Hiburan", "Tempat Ibadah", "Tradisional", "", )
+		val adapter = CategoryAdapter(categories)
+		binding.rvCategory.layoutManager =
+			LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+		binding.rvCategory.adapter = adapter
+
 	}
 
 	private fun isLoading(isLoading: Boolean){
