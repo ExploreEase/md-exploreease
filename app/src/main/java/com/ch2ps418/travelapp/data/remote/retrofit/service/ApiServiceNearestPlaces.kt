@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiServiceNearestPlaces {
 
-	@GET("ml/tennearestplace")
+	@GET("ml/nearby_treasure")
 	suspend fun getTenNearestPlaces(
 		@Query("devicetoken") devicetoken: String,
 		@Query("lat") lat: Double,
