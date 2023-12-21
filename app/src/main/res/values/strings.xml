@@ -60,7 +60,9 @@
     <string name="tv_item_location">Item Location</string>
     <string name="tv_item_price">Item Price</string>
     <string name="tv_item_rating">5.0</string>
-
+    <string name="search_location">Search Location</string>
+    <string name="tv_ask_search">Silahkan masukkan kata kunci terlebih dahulu</string>
+    <string name="tv_error">Maaf, tidak ada tempat yang ditemukan!</string>
 
 
 </resources>

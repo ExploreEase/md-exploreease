@@ -14,7 +14,7 @@ interface ApiServicePlaces {
 	): BackendResponse
 
 	@GET("ml/search")
-	suspend fun searchPlace(
+	suspend fun getSearchPlace(
 		@Query("devicetoken") devicetoken: String,
 		@Query("placename") lat: String,
 	): BackendResponse

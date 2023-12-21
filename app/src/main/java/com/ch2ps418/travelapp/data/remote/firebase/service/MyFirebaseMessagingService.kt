@@ -22,6 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 import javax.inject.Inject
 
 const val channelId = "notifiaction_channel"
@@ -43,6 +45,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			dataStoreManager.setDeviceToken(token)
 		}
 	}
+
 	private val TAG = "MyFirebaseMsgService"
 
 	override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -51,7 +54,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 		// Check if notification payload is received
 		remoteMessage.notification?.let {
-			showNotification(it.title!!,it.body!!)
+			showNotification(it.title!!, it.body!!)
 
 		}
 
@@ -64,17 +67,36 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 				object : TypeToken<List<Place>>() {}.type
 			)
 
-			Log.d("SUBMITTED", tenNearestPlaces.toString())
+			val payload = remoteMessage.data["notification"]
 
+			if (payload != null) {
+				try {
+					// Parse the JSON string to a JSONObject
+					val notificationObject = JSONObject(payload)
+
+					// Access the "title" field from the JSONObject
+					val title = notificationObject.getString("title")
+
+					Log.d("TITLE", "Message title: $title")
+				} catch (e: JSONException) {
+					Log.e("TITLE", "Error parsing JSON", e)
+				}
+			} else {
+				Log.d("NOTIFICATION", "Notification payload is null")
+			}
 
 			// Send a broadcast to notify the UI
 			val intent = Intent("MyCustomAction")
 			intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
 			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-		}
 
-		if (remoteMessage.data.isNotEmpty()) {
-			Log.d("BODY", "Message data payload: ${remoteMessage.data}")
+			// Send a broadcast to notify the UI
+			val searchIntent = Intent("Search Action")
+			searchIntent.putExtra("searchPlaces", ArrayList(tenNearestPlaces))
+			Log.d("SUBMITTED", tenNearestPlaces.toString())
+			LocalBroadcastManager.getInstance(this).sendBroadcast(searchIntent)
+		} else {
+			Log.d("DATA", "EMPTY")
 
 		}
 
@@ -107,21 +129,24 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 		)
 
 		// Create a Builder object using NotificationCompat class.
-		var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
-			.setSmallIcon(R.drawable.app_logo)
-			.setAutoCancel(true)
-			.setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-			.setOnlyAlertOnce(true)
-			.setContentIntent(pendingIntent)
+		var builder: NotificationCompat.Builder =
+			NotificationCompat.Builder(applicationContext, channelId)
+				.setSmallIcon(R.drawable.app_logo)
+				.setAutoCancel(true)
+				.setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+				.setOnlyAlertOnce(true)
+				.setContentIntent(pendingIntent)
 
 		// A customized design for the notification can be set only for Android versions 4.1 and above.
 		builder = builder.setContent(getCustomDesign(title, message))
 
 		// Create an object of NotificationManager class to notify the user of events that happen in the background.
-		val notificationManager = ContextCompat.getSystemService(applicationContext, NotificationManager::class.java)
+		val notificationManager =
+			ContextCompat.getSystemService(applicationContext, NotificationManager::class.java)
 		// Check if the Android Version is greater than Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+			val notificationChannel =
+				NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
 			notificationManager?.createNotificationChannel(notificationChannel)
 		}
 		notificationManager?.notify(0, builder.build())

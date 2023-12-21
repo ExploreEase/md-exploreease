@@ -1,4 +1,4 @@
-package com.ch2ps418.travelapp.presentation.ui.home.home
+package com.ch2ps418.travelapp.presentation.ui.home.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ch2ps418.travelapp.data.local.datastore.DataStoreManager
-import com.ch2ps418.travelapp.data.remote.repository.NearestPlacesRepository
+import com.ch2ps418.travelapp.data.remote.repository.SearchPlacesRepository
 import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import com.ch2ps418.travelapp.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,24 +15,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeFragmentViewModel @Inject constructor(
+class SearchFagmentViewModel @Inject constructor(
 	private val dataStoreManager: DataStoreManager,
-	private val repository: NearestPlacesRepository,
+	private val repository: SearchPlacesRepository,
 ) : ViewModel() {
 
 	private val _placesResult = MutableLiveData<Resource<BackendResponse>>()
-	fun getStatusOnboarding(): LiveData<Boolean> = dataStoreManager.getStatusOnboarding.asLiveData()
-
-
-
 	fun getDeviceToken(): LiveData<String?> = dataStoreManager.getDeviceToken.asLiveData()
 
+//	fun setDeviceToken(deviceToken: String) = CoroutineScope(Dispatchers.IO).launch {
+//		dataStoreManager.setDeviceToken(deviceToken)
+//	}
 
-	fun getNearestPlaces(deviceToken: String, lat: Double, lon: Double) {
+
+	fun getSearchPlace(deviceToken: String, placename: String) {
 		viewModelScope.launch(Dispatchers.IO) {
 			_placesResult.postValue(Resource.Loading())
 			try {
-				val data = repository.getNearestPlaces(deviceToken, lat, lon)
+				val data = repository.getSearchPlace(deviceToken, placename)
 
 //				Log.d("PAYLOAD", data.payload.toString())
 				if (data.payload != null) {
@@ -49,4 +49,5 @@ class HomeFragmentViewModel @Inject constructor(
 			}
 		}
 	}
+
 }
