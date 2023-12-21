@@ -91,6 +91,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
 
 			// Send a broadcast to notify the UI
+			val topIntent = Intent("Top Action")
+			topIntent.putExtra("topPlaces", ArrayList(tenNearestPlaces))
+			LocalBroadcastManager.getInstance(this).sendBroadcast(topIntent)
+
+
+			// Send a broadcast to notify the UI
 			val searchIntent = Intent("Search Action")
 			searchIntent.putExtra("searchPlaces", ArrayList(tenNearestPlaces))
 			Log.d("SUBMITTED", tenNearestPlaces.toString())

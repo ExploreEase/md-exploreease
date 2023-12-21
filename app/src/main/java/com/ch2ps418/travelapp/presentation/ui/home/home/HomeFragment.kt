@@ -98,12 +98,17 @@ class HomeFragment : Fragment() {
 						tenNearestPlaces?.let {
 							// Update your adapter with the new data
 							binding.rvPlace.layoutManager =
-								LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+								LinearLayoutManager(
+									requireContext(),
+									LinearLayoutManager.HORIZONTAL,
+									false
+								)
 							binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
 							isLoading(false)
 
 						}
 					}
+
 				}
 			},
 			IntentFilter("MyCustomAction")
@@ -111,29 +116,34 @@ class HomeFragment : Fragment() {
 
 		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
 			object : BroadcastReceiver() {
-				override fun onReceive(context: Context?, intentTopPlaces: Intent?) {
-					intentTopPlaces?.let {
-						val tenTopPlaces =
-							it.getSerializableExtra("tenTopPlaces") as? List<Place>
+				override fun onReceive(context: Context?, intent: Intent?) {
+					intent?.let {
+						val topPlaces =
+							it.getSerializableExtra("topPlaces") as? List<Place>
 
-						tenTopPlaces?.let {
+						topPlaces?.let {
 							// Update your adapter with the new data
 							binding.rvTopPlaces.layoutManager =
-								LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-							binding.rvTopPlaces.adapter = PlaceAdapter(tenTopPlaces)
+								LinearLayoutManager(
+									requireContext(),
+									LinearLayoutManager.HORIZONTAL,
+									false
+								)
+							binding.rvTopPlaces.adapter = PlaceAdapter(topPlaces)
 							isLoading(false)
 
 						}
 					}
 				}
 			},
-			IntentFilter("MyCustomActionTopPlaces")
+			IntentFilter("Top Action")
 		)
+
 	}
 
-	private fun isLoading(isLoading: Boolean){
+	private fun isLoading(isLoading: Boolean) {
 
-		if (isLoading){
+		if (isLoading) {
 			binding.constraintHome.visibility = View.GONE
 			binding.pbHome.visibility = View.VISIBLE
 		} else {
@@ -231,6 +241,20 @@ class HomeFragment : Fragment() {
 					location.latitude,
 					location.longitude
 				)
+
+				viewModel.placesResult.observe(viewLifecycleOwner){
+					status->
+
+					Log.d("STATUS", status.payload?.message.toString())
+					if (status.payload?.message.equals("ok")){
+						viewModel.getTopPlaces(
+							deviceToken,
+							location.latitude,
+							location.longitude
+						)
+					}
+				}
+
 			} else {
 				// Handle the case when last known location is null
 				// You may want to show a message to the user or take appropriate action

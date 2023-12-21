@@ -18,4 +18,11 @@ interface ApiServicePlaces {
 		@Query("devicetoken") devicetoken: String,
 		@Query("placename") lat: String,
 	): BackendResponse
+
+	@GET("ml/top_destination_topic")
+	suspend fun getTopPlace(
+		@Query("devicetoken") devicetoken: String,
+		@Query("lat") lat: Double,
+		@Query("lon") lon: Double
+	): BackendResponse
 }
