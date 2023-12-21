@@ -63,6 +63,7 @@
     <string name="search_location">Search Location</string>
     <string name="tv_ask_search">Silahkan masukkan kata kunci terlebih dahulu</string>
     <string name="tv_error">Maaf, tidak ada tempat yang ditemukan!</string>
+    <string name="title_top_destinations">Top Destinations</string>
 
 
 </resources>
