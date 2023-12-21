@@ -1,6 +1,6 @@
 package com.ch2ps418.travelapp.di
 
-import com.ch2ps418.travelapp.data.remote.retrofit.service.ApiServiceNearestPlaces
+import com.ch2ps418.travelapp.data.remote.retrofit.service.ApiServicePlaces
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +34,6 @@ object NetworkModule {
 
 	@Singleton
 	@Provides
-	fun provideApiServiceNearestPlaces(retrofit: Retrofit): ApiServiceNearestPlaces =
-		retrofit.create(ApiServiceNearestPlaces::class.java)
+	fun provideApiServicePlaces(retrofit: Retrofit): ApiServicePlaces =
+		retrofit.create(ApiServicePlaces::class.java)
 }

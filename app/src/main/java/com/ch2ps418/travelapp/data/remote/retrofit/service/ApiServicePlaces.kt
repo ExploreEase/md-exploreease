@@ -4,7 +4,7 @@ import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiServiceNearestPlaces {
+interface ApiServicePlaces {
 
 	@GET("ml/nearby_treasure")
 	suspend fun getTenNearestPlaces(
