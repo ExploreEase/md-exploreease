@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
 		bottomNav.setupWithNavController(navController)
 		navController.addOnDestinationChangedListener { _, destination, _ ->
 			when (destination.id) {
-				R.id.action_homeFragment_to_categoryFragment -> {
+				R.id.categoryFragment -> {
 					hideBottomNav(true)
 				}
 				else -> hideBottomNav(false)
