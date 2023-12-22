@@ -69,10 +69,57 @@ class DataStoreManager(@ApplicationContext private val context: Context) {
 		}
 	}
 
+	val getIsLogin: Flow<Boolean> = context.dataStore.data.map {
+		it[ISLOGIN_KEY] ?: false
+	}
+
+	suspend fun setIsLogin(status: Boolean) {
+		context.dataStore.edit {
+			it[ISLOGIN_KEY] = status
+		}
+	}
+
+
+	val getName: Flow<String?> = context.dataStore.data.map {
+		it[NAME_KEY]
+	}
+
+	suspend fun setName(name: String) {
+		context.dataStore.edit {
+			it[NAME_KEY] = name
+		}
+	}
+
+	val getEmail: Flow<String?> = context.dataStore.data.map {
+		it[EMAIL_KEY]
+	}
+
+	suspend fun setEmail(email: String) {
+		context.dataStore.edit {
+			it[EMAIL_KEY] = email
+		}
+	}
+
+	val getPassword: Flow<String?> = context.dataStore.data.map {
+		it[PASSWORD_KEY]
+	}
+
+	suspend fun setPassword(password: String) {
+		context.dataStore.edit {
+			it[PASSWORD_KEY] = password
+		}
+	}
+
 	companion object {
 		private const val DATASTORE_NAME = "datastore_preferences"
 		private val STATUS_ONBOARDING_KEY = booleanPreferencesKey("status_onboarding_key")
 		private val DEVICE_TOKEN_KEY = stringPreferencesKey("device_token_key")
+
+		private val ISLOGIN_KEY = booleanPreferencesKey("islogin_key")
+		private val NAME_KEY = stringPreferencesKey("name_key")
+		private val EMAIL_KEY = stringPreferencesKey("email_key")
+		private val PASSWORD_KEY = stringPreferencesKey("password_key")
+
 
 		private val LAT_KEY = stringPreferencesKey("lat_key")
 		private val LON_KEY = stringPreferencesKey("lon_key")

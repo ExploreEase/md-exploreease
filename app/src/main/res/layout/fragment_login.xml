@@ -1,124 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".presentation.ui.auth.login.LoginFragment">
 
-
-    <ImageView
-        android:id="@+id/iv_app_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/app_logo"
-        android:contentDescription="@string/app_name"/>
-
-    <TextView
-        android:id="@+id/tv_app_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/app_name"
-        android:textColor="@color/primary"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_login_page_title"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/login_page_title"
-        android:textColor="@color/primary"
-        android:textSize="32sp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_login_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="22dp"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/tv_name_email"
-        android:textColorHint="@color/primary_light"
-        android:textSize="16sp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="22dp"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/tv_name_password"
-        android:textColorHint="@color/primary_light"
-        android:textSize="16sp"
-        app:endIconMode="password_toggle">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="22dp"
-        android:background="@drawable/rounded_gradient_button"
-        android:fontFamily="@font/poppins_semibold"
-        android:padding="8dp"
-        android:text="@string/btn_login"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        tools:context=".presentation.ui.auth.login.LoginFragment">
 
-        <TextView
-            android:id="@+id/tv_register_alternate"
+        <ImageView
+            android:id="@+id/iv_app_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/to_register_alternate"
-            android:textColor="@color/primary"
-            android:textSize="16sp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/app_logo" />
 
         <TextView
-            android:id="@+id/btn_register_alternate"
+            android:id="@+id/tv_app_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="@string/btn_register"
+            android:text="@string/app_name"
             android:textColor="@color/primary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_login_page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/login_page_title"
+            android:textColor="@color/primary"
+            android:textSize="32sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/tv_name_email"
+            android:textColorHint="@color/primary_light"
+            android:textSize="16sp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/tv_name_password"
+            android:textColorHint="@color/primary_light"
+            android:textSize="16sp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/rounded_gradient_button"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="8dp"
+            android:text="@string/btn_login"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_register_alternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/to_register_alternate"
+                android:textColor="@color/primary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/btn_register_alternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/btn_register"
+                android:textColor="@color/primary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -7,14 +7,14 @@
     tools:context=".presentation.ui.auth.AuthActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerViewAuth"
-        android:name="com.ch2ps418.travelapp.presentation.ui.auth.login.LoginFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_login" />
+    android:id="@+id/authfragmentContainerViewHome"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:defaultNavHost="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:navGraph="@navigation/auth_nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
-import com.ch2ps418.travelapp.databinding.ItemPlaceBinding
 import com.ch2ps418.travelapp.databinding.ItemPlaceHorizontalBinding
 import com.ch2ps418.travelapp.presentation.ui.home.home.detail.DetailActivity
 import java.text.NumberFormat

@@ -65,6 +65,9 @@
     <string name="tv_error">Maaf, tidak ada tempat yang ditemukan!</string>
     <string name="title_top_destinations">Top Destinations</string>
     <string name="category">Category:</string>
+    <string name="logout">Logout</string>
 
+    <string name="tv_error_input_blank">Field could not be empty!</string>
+    <string name="tv_error_password_mismatch">Password did not match!</string>
 
 </resources>

@@ -36,6 +36,9 @@ class HomeFragmentViewModel @Inject constructor(
 		dataStoreManager.setLonUser(lon)
 	}
 
+	fun getName(): LiveData<String?> = dataStoreManager.getName.asLiveData()
+
+
 
 	fun getDeviceToken(): LiveData<String?> = dataStoreManager.getDeviceToken.asLiveData()
 
