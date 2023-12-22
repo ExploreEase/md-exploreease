@@ -97,7 +97,7 @@ class CategoryFragment : Fragment() {
 	}
 
 	private fun setView(){
-		binding.tvContentCategory.text = category
+		binding.tvItemCategory.text = category
 	}
 
 	private fun isLoading(isLoading: Boolean) {

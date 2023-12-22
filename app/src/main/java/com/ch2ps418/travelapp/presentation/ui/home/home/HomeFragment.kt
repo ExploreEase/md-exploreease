@@ -283,14 +283,15 @@ class HomeFragment : Fragment() {
 				// Handle the case when last known location is null
 				// You may want to show a message to the user or take appropriate action
 
-				Toast.makeText(
-					requireContext(),
-					"Location is null, fetching place near default location: Semarang!",
-					Toast.LENGTH_SHORT
-				).show()
 				viewModel.getNearestPlaces(
 					deviceToken,
 					-7.052945994551127,
+					110.44020676422383
+				)
+
+				viewModel.getTopPlaces(
+					deviceToken,
+					7.052945994551127,
 					110.44020676422383
 				)
 			}
