@@ -59,59 +59,70 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 		}
 
 		if (remoteMessage.data.isNotEmpty()) {
-			Log.d("PAYLOAD", "Message data payload: ${remoteMessage.data}")
 
-			val tenNearestPlaceJson = remoteMessage.data["tenNearestPlace"]
-			val tenNearestPlaces = Gson().fromJson<List<Place>>(
-				tenNearestPlaceJson,
-				object : TypeToken<List<Place>>() {}.type
-			)
+			val type = remoteMessage.data["type"]
 
-			val payload = remoteMessage.data["notification"]
+			Log.d("TYPE", type.toString())
 
-			if (payload != null) {
-				try {
-					// Parse the JSON string to a JSONObject
-					val notificationObject = JSONObject(payload)
+			if (type == "topdestination"){
+				val topDestinationPlacesJson = remoteMessage.data["tenNearestPlace"]
+				val topDestinationPlaces = Gson().fromJson<List<Place>>(
+					topDestinationPlacesJson,
+					object : TypeToken<List<Place>>() {}.type
+				)
+				// Send a broadcast to notify the UI
+				val topIntent = Intent("Top Action")
+				topIntent.putExtra("topPlaces", ArrayList(topDestinationPlaces))
+				LocalBroadcastManager.getInstance(this).sendBroadcast(topIntent)
 
-					// Access the "title" field from the JSONObject
-					val title = notificationObject.getString("title")
-
-					Log.d("TITLE", "Message title: $title")
-				} catch (e: JSONException) {
-					Log.e("TITLE", "Error parsing JSON", e)
-				}
-			} else {
-				Log.d("NOTIFICATION", "Notification payload is null")
 			}
 
-			// Send a broadcast to notify the UI
-			val intent = Intent("Nearest Action")
-			intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
-			LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+			if (type == "nearbytreasure") {
+				val tenNearestPlaceJson = remoteMessage.data["tenNearestPlace"]
+				val tenNearestPlaces = Gson().fromJson<List<Place>>(
+					tenNearestPlaceJson,
+					object : TypeToken<List<Place>>() {}.type
+				)
 
-			// Send a broadcast to notify the UI
-			val topIntent = Intent("Top Action")
-			topIntent.putExtra("topPlaces", ArrayList(tenNearestPlaces))
-			LocalBroadcastManager.getInstance(this).sendBroadcast(topIntent)
+				// Send a broadcast to notify the UI
+				val intent = Intent("Nearest Action")
+				intent.putExtra("tenNearestPlaces", ArrayList(tenNearestPlaces))
+				LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
 
+			}
 
-			// Send a broadcast to notify the UI
-			val searchIntent = Intent("Search Action")
-			searchIntent.putExtra("searchPlaces", ArrayList(tenNearestPlaces))
-			LocalBroadcastManager.getInstance(this).sendBroadcast(searchIntent)
+			if (type == "search"){
+				val searchPlacesJson = remoteMessage.data["tenNearestPlace"]
+				val searchPlaces = Gson().fromJson<List<Place>>(
+					searchPlacesJson,
+					object : TypeToken<List<Place>>() {}.type
+				)
 
-			// Send a broadcast to notify the UI
-			val categoryIntent = Intent("Category Action")
-			categoryIntent.putExtra("categoryPlaces", ArrayList(tenNearestPlaces))
-			LocalBroadcastManager.getInstance(this).sendBroadcast(categoryIntent)
+				// Send a broadcast to notify the UI
+				val searchIntent = Intent("Search Action")
+				searchIntent.putExtra("searchPlaces", ArrayList(searchPlaces))
+				LocalBroadcastManager.getInstance(this).sendBroadcast(searchIntent)
+			}
+
+			if (type == "searchbycategory") {
+				val categoryPlacesJson = remoteMessage.data["tenNearestPlace"]
+				val categoryPlaces = Gson().fromJson<List<Place>>(
+					categoryPlacesJson,
+					object : TypeToken<List<Place>>() {}.type
+				)
+
+				// Send a broadcast to notify the UI
+				val categoryIntent = Intent("Category Action")
+				categoryIntent.putExtra("categoryPlaces", ArrayList(categoryPlaces))
+				LocalBroadcastManager.getInstance(this).sendBroadcast(categoryIntent)
+			}
+
 		} else {
 			Log.d("DATA", "EMPTY")
 
 		}
 
 	}
-
 
 	// Method to get the custom Design for the display of notification.
 	private fun getCustomDesign(title: String, message: String): RemoteViews {

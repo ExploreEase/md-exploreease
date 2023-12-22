@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 	private const val baseUrl =
-		"https://capstone-backend-rtfpcq2a4a-et.a.run.app/"
+		"https://exploreease-backend-rtfpcq2a4a-et.a.run.app/"
 
 	@Singleton
 	@Provides

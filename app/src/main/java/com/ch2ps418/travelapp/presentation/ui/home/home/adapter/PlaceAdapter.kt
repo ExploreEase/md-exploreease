@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.ItemPlaceBinding
 import com.ch2ps418.travelapp.presentation.ui.home.home.detail.DetailActivity
+import java.text.NumberFormat
+import java.util.Locale
 
 class PlaceAdapter(private val data: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
@@ -35,7 +38,7 @@ class PlaceAdapter(private val data: List<Place>) :
         fun bindItem(data: Place, context: Context) {
             binding.tvNamePlace.text = data.Place_Name
             binding.tvRatingPlace.text = data.Rating.toString()
-            binding.tvItemLocation.text = data.City
+            binding.tvItemPrice.text = formatToRupiah(data.Price)
             binding.cvPlace.setOnClickListener {
                 data?.let { place ->
                     val intent = Intent(context, DetailActivity::class.java)
@@ -51,9 +54,14 @@ class PlaceAdapter(private val data: List<Place>) :
             }
 
             // Use Glide for loading images if needed
-            // Glide.with(context).load(data.imageUrl).into(binding.ivImagePlace)
+             Glide.with(context).load(data.Photos).into(binding.ivImagePlace)
 
             // Set up click listeners or any other binding logic here
+        }
+
+        fun formatToRupiah(price: Int): String {
+            val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+            return formatter.format(price)
         }
 
         private fun navigateToDetailActivity(context: Context) {

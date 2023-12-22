@@ -2,6 +2,7 @@ package com.ch2ps418.travelapp.presentation.ui.home.home.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
 import com.ch2ps418.travelapp.databinding.ActivityDetailBinding
 import java.text.NumberFormat
@@ -31,11 +32,11 @@ class DetailActivity : AppCompatActivity() {
 
 				binding.collapsingToolbar.title = placeData.Place_Name
 				binding.tvNamePlace.text = placeData.Place_Name
-				binding.tvCity.text = placeData.City
 				binding.tvCategory.text = placeData.Category
 				binding.tvPrice.text = formatToRupiah(placeData.Price)
 				binding.tvRating.text = placeData.Rating.toString()
-
+				// Use Glide for loading images if needed
+				Glide.with(this).load(placeData.Photos).into(binding.ivDetailPhoto)
 			}
 		}
 	}

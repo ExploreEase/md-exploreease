@@ -38,6 +38,9 @@
         tools:text="Budaya"
         android:textColor="@color/primary"
         android:textSize="24sp"
+        android:layout_marginEnd="24dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintStart_toEndOf="@id/tv_title_category"
         app:layout_constraintTop_toTopOf="parent" />
 

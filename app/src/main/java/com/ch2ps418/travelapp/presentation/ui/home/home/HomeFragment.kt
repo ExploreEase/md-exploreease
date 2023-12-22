@@ -274,11 +274,11 @@ class HomeFragment : Fragment() {
 					location.longitude
 				)
 
-//				viewModel.getTopPlaces(
-//					deviceToken,
-//					location.latitude,
-//					location.longitude
-//				)
+				viewModel.getTopPlaces(
+					deviceToken,
+					location.latitude,
+					location.longitude
+				)
 			} else {
 				// Handle the case when last known location is null
 				// You may want to show a message to the user or take appropriate action
