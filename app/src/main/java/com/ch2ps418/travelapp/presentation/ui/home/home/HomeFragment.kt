@@ -59,8 +59,6 @@ class HomeFragment : Fragment() {
 							false
 						)
 					binding.rvTopPlaces.adapter = PlaceAdapter(topPlaces)
-					isLoading(false)
-
 				}
 			}
 		}
@@ -83,7 +81,6 @@ class HomeFragment : Fragment() {
 							false
 						)
 					binding.rvPlace.adapter = PlaceAdapter(tenNearestPlaces)
-					isLoading(false)
 
 				}
 			}
@@ -172,11 +169,13 @@ class HomeFragment : Fragment() {
 	private fun isLoading(isLoading: Boolean) {
 
 		if (isLoading) {
-			binding.constraintHome.visibility = View.GONE
-			binding.pbHome.visibility = View.VISIBLE
+			binding.pbNearby.visibility = View.VISIBLE
+			binding.pbTop.visibility = View.VISIBLE
+
 		} else {
-			binding.constraintHome.visibility = View.VISIBLE
-			binding.pbHome.visibility = View.GONE
+			binding.pbNearby.visibility = View.GONE
+			binding.pbTop.visibility = View.GONE
+
 		}
 	}
 

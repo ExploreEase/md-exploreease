@@ -10,15 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/pb_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32999998" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_welcome_user"
@@ -173,16 +164,16 @@
                 android:text="@string/tv_nearby_item_title"
                 android:textSize="24sp" />
 
-           <!-- <TextView
-                android:id="@+id/btn_view_nearby"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="end"
-                android:text="@string/btn_view_more"
-                android:textColor="@color/primary"
-                android:textSize="12sp" />-->
+            <!-- <TextView
+                 android:id="@+id/btn_view_nearby"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="8dp"
+                 android:fontFamily="@font/poppins_semibold"
+                 android:gravity="end"
+                 android:text="@string/btn_view_more"
+                 android:textColor="@color/primary"
+                 android:textSize="12sp" />-->
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -190,6 +181,16 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             app:layout_constraintTop_toBottomOf="@+id/nearby_item_layout">
+
+            <ProgressBar
+                android:id="@+id/pb_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_place"
@@ -239,6 +240,16 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             app:layout_constraintTop_toBottomOf="@+id/top_item_layout">
+
+            <ProgressBar
+                android:id="@+id/pb_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_top_places"
