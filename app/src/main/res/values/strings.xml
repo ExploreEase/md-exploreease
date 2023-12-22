@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelApp</string>
+    <string name="app_name">Explore Ease</string>
 
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
@@ -7,13 +7,13 @@
 
     <string-array name="carousel_titles">
         <item>Find Your Perfect Place</item>
-        <item>Discover Your Travel Style</item>
+        <item>Nearby Treasures</item>
         <item>Traveler’s Choice</item>
     </string-array>
 
     <string-array name="carousel_subtitles">
         <item>Search for any place You want to visit in Indonesia, from cities and islands to beaches and volcanoes.</item>
-        <item>Discover your travel style and get personalized recommendations based on your preferences and interests.</item>
+        <item>Start your remarkable journey to uncover Indonesia hidden treasures.</item>
         <item>Shows you the best places to visit in Indonesia, based on the highest ratings from other travelers.</item>
     </string-array>
 
