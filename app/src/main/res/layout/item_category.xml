@@ -7,7 +7,7 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="12dp"
     android:elevation="4dp"
     android:backgroundTint="@color/secondary">
 
@@ -21,7 +21,6 @@
         android:text="@string/tv_item_category"
         android:textColor="@color/white"
         android:textSize="12sp"
-
         android:fontFamily="@font/poppins_semibold"/>
 
 
