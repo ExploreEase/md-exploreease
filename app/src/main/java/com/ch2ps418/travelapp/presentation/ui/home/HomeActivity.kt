@@ -39,17 +39,14 @@ class HomeActivity : AppCompatActivity() {
 
 		setupActionBarWithNavController(navController, appBarConfiguration)
 		bottomNav.setupWithNavController(navController)
-//		navController.addOnDestinationChangedListener { _, destination, _ ->
-//			when (destination.id) {
-//				R.id.action_provinceFragment_to_cityFragment -> {
-//					hideBottomNav(true)
-//				}
-//				R.id.action_cityFragment_to_provinceFragment -> {
-//					hideBottomNav(true)
-//				}
-//				else -> hideBottomNav(false)
-//			}
-//		}
+		navController.addOnDestinationChangedListener { _, destination, _ ->
+			when (destination.id) {
+				R.id.action_homeFragment_to_categoryFragment -> {
+					hideBottomNav(true)
+				}
+				else -> hideBottomNav(false)
+			}
+		}
 	}
 
 	private fun hideBottomNav(hide: Boolean) {

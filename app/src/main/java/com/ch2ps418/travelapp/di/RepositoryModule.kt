@@ -1,5 +1,7 @@
 package com.ch2ps418.travelapp.di
 
+import com.ch2ps418.travelapp.data.remote.repository.CategoryPlacesRepository
+import com.ch2ps418.travelapp.data.remote.repository.CategoryPlacesRepositoryImpl
 import com.ch2ps418.travelapp.data.remote.repository.NearestPlacesRepository
 import com.ch2ps418.travelapp.data.remote.repository.NearestPlacesRepositoryImpl
 import com.ch2ps418.travelapp.data.remote.repository.SearchPlacesRepository
@@ -22,5 +24,8 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindsTopPlacesRepository(topPlacesRepositoryImpl: TopPlacesRepositoryImpl): TopPlacesRepository
+
+	@Binds
+	abstract fun bindsCategoryPlacesRepository(categoryPlacesRepositoryImpl: CategoryPlacesRepositoryImpl): CategoryPlacesRepository
 
 }

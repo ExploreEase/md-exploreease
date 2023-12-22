@@ -1,5 +1,7 @@
 package com.ch2ps418.travelapp.di
 
+import com.ch2ps418.travelapp.data.remote.retrofit.datasource.CategoryPlacesRemoteDataSource
+import com.ch2ps418.travelapp.data.remote.retrofit.datasource.CategoryPlacesRemoteDataSourceImpl
 import com.ch2ps418.travelapp.data.remote.retrofit.datasource.NearestPlacesRemoteDataSource
 import com.ch2ps418.travelapp.data.remote.retrofit.datasource.NearestPlacesRemoteDataSourceImpl
 import com.ch2ps418.travelapp.data.remote.retrofit.datasource.SearchPlacesRemoteDataSource
@@ -23,5 +25,8 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideTopPlacesRemoteDataSource(topPlacesRemoteDataSourceImpl: TopPlacesRemoteDataSourceImpl): TopPlacesRemoteDataSource
+
+	@Binds
+	abstract fun provideCategoryPlacesRemoteDataSource(categoryPlacesRemoteDataSourceImpl: CategoryPlacesRemoteDataSourceImpl): CategoryPlacesRemoteDataSource
 
 }

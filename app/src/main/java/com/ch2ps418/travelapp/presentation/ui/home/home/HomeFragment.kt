@@ -263,6 +263,10 @@ class HomeFragment : Fragment() {
 		}
 		fusedLocationClient.lastLocation.addOnSuccessListener { location ->
 			if (location != null) {
+
+				viewModel.setLatUser(location.latitude)
+				viewModel.setLonUser(location.longitude)
+
 				// If last known location is available, use it
 				viewModel.getNearestPlaces(
 					deviceToken,

@@ -25,4 +25,12 @@ interface ApiServicePlaces {
 		@Query("lat") lat: Double,
 		@Query("lon") lon: Double
 	): BackendResponse
+
+	@GET("ml/search_by_category")
+	suspend fun getSearchByCategory(
+		@Query("devicetoken") devicetoken: String,
+		@Query("lat") lat: Double,
+		@Query("lon") lon: Double,
+		@Query("usercategory") usercategory: String,
+	): BackendResponse
 }

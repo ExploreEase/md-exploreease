@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.dagger.hilt.android'
     id("com.google.gms.google-services")
+    id 'androidx.navigation.safeargs.kotlin'
+
 }
 
 android {
@@ -96,6 +98,10 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    // navargs
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 }
 
 kapt {

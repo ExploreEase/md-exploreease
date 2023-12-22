@@ -1,40 +1,43 @@
-package com.ch2ps418.travelapp.presentation.ui.home.search
+package com.ch2ps418.travelapp.presentation.ui.home.home.category
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.KeyEvent
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ch2ps418.travelapp.data.remote.firebase.model.Place
-import com.ch2ps418.travelapp.databinding.FragmentSearchBinding
+import com.ch2ps418.travelapp.databinding.FragmentCategoryBinding
+import com.ch2ps418.travelapp.presentation.ui.home.home.HomeFragmentArgs
 import com.ch2ps418.travelapp.presentation.ui.home.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class CategoryFragment : Fragment() {
 
-	private var _binding: FragmentSearchBinding? = null
+	private var _binding: FragmentCategoryBinding? = null
 	private val binding get() = _binding!!
 
-	private val viewModel: SearchFagmentViewModel by viewModels()
+	private val viewModel: CategoryFragmentViewModel by viewModels()
 
-	private val searchBroadcastReceiver = object : BroadcastReceiver() {
+	private val args: HomeFragmentArgs by navArgs()
+
+	private lateinit var category: String
+
+	private val categoryBroadcastReceiver = object : BroadcastReceiver() {
 		override fun onReceive(context: Context?, intent: Intent?) {
 			isLoading(false)
 
 			intent?.let {
 				val places =
-					it.getSerializableExtra("searchPlaces") as? List<Place>
+					it.getSerializableExtra("categoryPlaces") as? List<Place>
 
 				places?.let {
 					binding.rvPlace.visibility = View.VISIBLE
@@ -46,13 +49,11 @@ class SearchFragment : Fragment() {
 					// Handle the case where places is null
 					// For example, show an error message or hide the RecyclerView
 					binding.rvPlace.visibility = View.GONE
-					binding.tvError.visibility = View.VISIBLE
 				}
 			} ?: run {
 				// Handle the case where intent is null
 				// For example, show an error message or hide the RecyclerView
 				binding.rvPlace.visibility = View.GONE
-				binding.tvError.visibility = View.VISIBLE
 			}
 		}
 	}
@@ -60,57 +61,43 @@ class SearchFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
 	): View {
-		_binding = FragmentSearchBinding.inflate(inflater, container, false)
+		_binding = FragmentCategoryBinding.inflate(inflater, container, false)
 		return binding.root
 	}
-
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		isLoading(false)
+		init()
 
-		binding.etSearch.setOnKeyListener { _, keyCode, event ->
-			if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+		setView()
 
-				isLoading(true)
-				binding.rvPlace.visibility = View.GONE
-				binding.tvAskSearch.visibility = View.GONE
-
-//				// Inisialisasi handler
-//				val handler = Handler()
-//
-//				// Set a timeout using Handler
-//				val timeoutMillis = 3000L // 3 seconds
-//
-//				handler.postDelayed({
-//					// Handle the case where the loading took more than 3 seconds
-//					// For example, show an error message or perform alternative actions
-//					isLoading(false)
-//					binding.rvPlace.visibility = View.GONE
-//					binding.tvError.visibility = View.VISIBLE
-//					binding.tvAskSearch.visibility = View.GONE
-//				}, timeoutMillis)
-
-				// Check if the search text is not null or empty
-				val searchText = binding.etSearch.text.toString().trim()
-				if (searchText.isNotEmpty()) {
-					// Perform the API call only if the search text is not null or empty
-					viewModel.getDeviceToken().observe(viewLifecycleOwner) { deviceToken ->
-						viewModel.getSearchPlace(deviceToken.toString(), searchText)
-					}
-					return@setOnKeyListener true // Consume the key event
+		viewModel.getDeviceToken().observe(viewLifecycleOwner){  deviceToken->
+			viewModel.getLatUser().observe(viewLifecycleOwner){ lat ->
+				viewModel.getLonUser().observe(viewLifecycleOwner) { lon ->
+					viewModel.getSearchByCategory(
+						deviceToken.toString(),
+						lat!!,
+						lon!!,
+						category
+					)
 				}
 			}
-			return@setOnKeyListener false // Continue processing the key event
 		}
 
 
 		LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-			searchBroadcastReceiver,
-			IntentFilter("Search Action")
+			categoryBroadcastReceiver,
+			IntentFilter("Category Action")
 		)
+	}
 
+	private fun init(){
+		category = args.category
+	}
+
+	private fun setView(){
+		binding.tvContentCategory.text = category
 	}
 
 	private fun isLoading(isLoading: Boolean) {
@@ -126,6 +113,6 @@ class SearchFragment : Fragment() {
 		super.onDestroyView()
 		_binding = null
 		LocalBroadcastManager.getInstance(requireContext())
-			.unregisterReceiver(searchBroadcastReceiver)
+			.unregisterReceiver(categoryBroadcastReceiver)
 	}
 }

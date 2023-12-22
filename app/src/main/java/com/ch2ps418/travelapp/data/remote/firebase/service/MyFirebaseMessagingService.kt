@@ -100,6 +100,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 			val searchIntent = Intent("Search Action")
 			searchIntent.putExtra("searchPlaces", ArrayList(tenNearestPlaces))
 			LocalBroadcastManager.getInstance(this).sendBroadcast(searchIntent)
+
+			// Send a broadcast to notify the UI
+			val categoryIntent = Intent("Category Action")
+			categoryIntent.putExtra("categoryPlaces", ArrayList(tenNearestPlaces))
+			LocalBroadcastManager.getInstance(this).sendBroadcast(categoryIntent)
 		} else {
 			Log.d("DATA", "EMPTY")
 

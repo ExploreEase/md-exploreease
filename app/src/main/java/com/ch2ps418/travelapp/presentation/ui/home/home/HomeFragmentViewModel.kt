@@ -11,6 +11,7 @@ import com.ch2ps418.travelapp.data.remote.repository.TopPlacesRepository
 import com.ch2ps418.travelapp.data.remote.retrofit.model.BackendResponse
 import com.ch2ps418.travelapp.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +28,13 @@ class HomeFragmentViewModel @Inject constructor(
 
 	fun getStatusOnboarding(): LiveData<Boolean> = dataStoreManager.getStatusOnboarding.asLiveData()
 
+	fun setLatUser(lat: Double) = CoroutineScope(Dispatchers.IO).launch {
+		dataStoreManager.setLatUser(lat)
+	}
+
+	fun setLonUser(lon: Double) = CoroutineScope(Dispatchers.IO).launch {
+		dataStoreManager.setLonUser(lon)
+	}
 
 
 	fun getDeviceToken(): LiveData<String?> = dataStoreManager.getDeviceToken.asLiveData()

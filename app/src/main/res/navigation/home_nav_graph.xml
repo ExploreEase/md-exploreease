@@ -10,12 +10,21 @@
         android:name="com.ch2ps418.travelapp.presentation.ui.home.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="Budaya" />
+
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -40,6 +49,16 @@
         <action
             android:id="@+id/action_profileFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.ch2ps418.travelapp.presentation.ui.home.home.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+
+        <action
+            android:id="@+id/action_categoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 
